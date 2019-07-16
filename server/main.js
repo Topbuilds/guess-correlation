@@ -84,8 +84,9 @@ Empirica.gameInit(game => {
   const playerIds = _.pluck(game.players, "_id");
   game.players.forEach((player, i) => {
     player.set("cumulativeScore", 0);
-    player.set("bonus", i);
-
+    player.set("bonus", 0);
+	player.set("p_id", i);
+	//player.set("concept", "null");
     player.set("avatar", getAvatar(player, i, "abstract"));
 
     player.set(

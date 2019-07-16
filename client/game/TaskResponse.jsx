@@ -82,20 +82,47 @@ export default class TaskResponse extends React.Component {
     );
   };
 
-  renderCurrentGuess = player => {
-    return (
-      <Label>
-        Your current guess of the correlation is: {player.round.get("guess")}
-      </Label>
-    );
+  renderCurrentGuess = (round, player) => {
+	  if(round.index === 0)
+		{
+			return (
+				
+			<Label>
+				Your current concept round 0 is:{player.round.get("guess")}
+			</Label>
+
+			);
+		}
+		else
+		{
+			return (
+			<Label>
+				Your current guess of the correlation is: {player.round.get("guess")}
+			</Label>
+			);
+		}
+    
   };
   
-  renderCurrentChoice = player => {
-    return (
-      <Label>
-        Your current choice of the correlation is: {player.round.get("choice")}
-      </Label>
-    );
+  renderCurrentChoice = (round, player) => {
+      if(round.index === 0)
+		{
+			return (
+				
+			<Label>
+				Your current concept round 0 is:{player.round.get("choice")}
+			</Label>
+
+			);
+		}
+		else
+		{
+			return (
+			<Label>
+				Your current choice of the correlation is: {player.round.get("choice")}
+			</Label>
+			);
+		}
   };
 
   renderEditableText(player, round, isOutcome) {
@@ -213,18 +240,20 @@ export default class TaskResponse extends React.Component {
     }
     const feedbackTime = round.get("displayFeedback");
     const isOutcome = stage.name === "outcome";
-    const selfFeedback = game.treatment.selfFeedback;
-	if(0 === player.get("bonus")){
+	const selfFeedback = game.treatment.selfFeedback;
+	
+
+	if(0 === player.get("p_id")){
 		return (
 		<div className="task-response">
 			<form onSubmit={this.handleSubmit}>
 			<FormGroup>
-				{!isOutcome ? this.renderCurrentGuess(player) : null}
+				{!isOutcome ? this.renderCurrentGuess(round, player) : null}
 				{this.renderSlider(player, round, isOutcome)}
 			</FormGroup>
 
 			<FormGroup>
-				{!isOutcome ? this.renderCurrentChoice(player) : null}
+				{!isOutcome ? this.renderCurrentChoice(round, player) : null}
 				{this.renderEditableText(player, round, isOutcome)}
 			</FormGroup>
 
@@ -249,7 +278,7 @@ export default class TaskResponse extends React.Component {
 			<form onSubmit={this.handleSubmit}>
 
 			<FormGroup>
-				{!isOutcome ? this.renderCurrentChoice(player) : null}
+				{!isOutcome ? this.renderCurrentChoice(round, player) : null}
 				{this.renderEditableText(player, round, isOutcome)}
 			</FormGroup>
 
