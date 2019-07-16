@@ -17,7 +17,8 @@ Empirica.onRoundStart((game, round) => {
     player.round.set("alterIds", player.get("alterIds"));
 	player.round.set("guess", null);
 	player.round.set("choice", null);
-    player.round.set("difficulty", player.get("difficulty"));
+	player.round.set("difficulty", player.get("difficulty"));
+	console.log("game", player.index, "player id");
   });
 
   const feedbackTime =

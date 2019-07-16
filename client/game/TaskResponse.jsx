@@ -214,32 +214,58 @@ export default class TaskResponse extends React.Component {
     const feedbackTime = round.get("displayFeedback");
     const isOutcome = stage.name === "outcome";
     const selfFeedback = game.treatment.selfFeedback;
+	if(0 === player.get("bonus")){
+		return (
+		<div className="task-response">
+			<form onSubmit={this.handleSubmit}>
+			<FormGroup>
+				{!isOutcome ? this.renderCurrentGuess(player) : null}
+				{this.renderSlider(player, round, isOutcome)}
+			</FormGroup>
 
-    return (
-      <div className="task-response">
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup>
-            {!isOutcome ? this.renderCurrentGuess(player) : null}
-            {this.renderSlider(player, round, isOutcome)}
-          </FormGroup>
+			<FormGroup>
+				{!isOutcome ? this.renderCurrentChoice(player) : null}
+				{this.renderEditableText(player, round, isOutcome)}
+			</FormGroup>
 
-		  <FormGroup>
-            {!isOutcome ? this.renderCurrentChoice(player) : null}
-            {this.renderEditableText(player, round, isOutcome)}
-          </FormGroup>
+			{/*We only show self feedback if it is feedback time & we show individual feedback & it is outcome*/}
+			{isOutcome && feedbackTime && selfFeedback
+				? this.renderFeedback(player, round)
+				: null}
 
-          {/*We only show self feedback if it is feedback time & we show individual feedback & it is outcome*/}
-          {isOutcome && feedbackTime && selfFeedback
-            ? this.renderFeedback(player, round)
-            : null}
+			<FormGroup>
+				<Button type="submit" icon={"tick"} large={true} fill={true}>
+				{isOutcome ? "Next" : "Submit"}
+				</Button>
+			</FormGroup>
+			</form>
+		</div>
+		);
+	}
+	else
+	{
+		return (
+		<div className="task-response">
+			<form onSubmit={this.handleSubmit}>
 
-          <FormGroup>
-            <Button type="submit" icon={"tick"} large={true} fill={true}>
-              {isOutcome ? "Next" : "Submit"}
-            </Button>
-          </FormGroup>
-        </form>
-      </div>
-    );
+			<FormGroup>
+				{!isOutcome ? this.renderCurrentChoice(player) : null}
+				{this.renderEditableText(player, round, isOutcome)}
+			</FormGroup>
+
+			{/*We only show self feedback if it is feedback time & we show individual feedback & it is outcome*/}
+			{isOutcome && feedbackTime && selfFeedback
+				? this.renderFeedback(player, round)
+				: null}
+
+			<FormGroup>
+				<Button type="submit" icon={"tick"} large={true} fill={true}>
+				{isOutcome ? "Next" : "Submit"}
+				</Button>
+			</FormGroup>
+			</form>
+		</div>
+		);
+	}
   }
 }
