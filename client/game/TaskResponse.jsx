@@ -26,7 +26,7 @@ export default class TaskResponse extends React.Component {
   }
 
   handleChange = num => {
-    const { stage, player } = this.props;
+    const { game, stage, player } = this.props;
     if (stage.name !== "outcome") {
       const value = Math.round(num * 100) / 100;
       //this.setState({ guess: value });
@@ -36,12 +36,12 @@ export default class TaskResponse extends React.Component {
   };
 
   handleRelease = num => {
-    const { stage, player } = this.props;
+    const { game, stage, player } = this.props;
     if (stage.name !== "outcome") {
-      const value = Math.round(num * 100) / 100;
+       const value = Math.round(num * 100) / 100;
       //this.setState({ guess: value });
-      player.round.set("guess", value);
-      player.stage.append("guess", value);
+       player.round.set("guess", value);
+    //   player.stage.append("guess", value);
     }
   };
 
@@ -153,7 +153,7 @@ export default class TaskResponse extends React.Component {
   }
 
 
-  renderSlider(player, round, isOutcome) {
+  renderSlider(game, player, round, isOutcome) {
     const feedbackTime = round.get("displayFeedback");
     const correctAnswer = round.get("task").correctAnswer;
     return (
@@ -239,7 +239,8 @@ export default class TaskResponse extends React.Component {
       return this.renderSubmitted();
     }
     const feedbackTime = round.get("displayFeedback");
-    const isOutcome = stage.name === "outcome";
+	const isOutcome = stage.name === "outcome";
+	// const isOutcome = round.index === 4;
 	const selfFeedback = game.treatment.selfFeedback;
 	
 
@@ -249,7 +250,7 @@ export default class TaskResponse extends React.Component {
 			<form onSubmit={this.handleSubmit}>
 			<FormGroup>
 				{!isOutcome ? this.renderCurrentGuess(round, player) : null}
-				{this.renderSlider(player, round, isOutcome)}
+				{this.renderSlider(game, player, round, isOutcome)}
 			</FormGroup>
 
 			<FormGroup>

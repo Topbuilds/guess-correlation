@@ -5,7 +5,7 @@ import Empirica from "meteor/empirica:core";
 // the game.
 Empirica.onGameStart(game => {
   game.set("justStarted", true); // I use this to play the sound on the UI when the game starts
-
+  game.set("concept", 0);
   console.log("game", game._id, "started");
 });
 
@@ -18,7 +18,7 @@ Empirica.onRoundStart((game, round) => {
 	player.round.set("guess", null);
 	player.round.set("choice", null);
 	player.round.set("difficulty", player.get("difficulty"));
-	console.log("game", player.index, "player id");
+	// console.log("game", player.index, "player id");
   });
 
   const feedbackTime =
