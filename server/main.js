@@ -108,15 +108,21 @@ Empirica.gameInit(game => {
 
     //we set the round with the task data for that round
     round.set("task", tasks[i]);
-
-    //always add the "response stage" which is the independent guess one
+	round.set("answer", null);
+	//always add the "response stage" which is the independent guess one
+	round.addStage({
+      name: "question1",
+      displayName: "question1",
+      durationInSeconds: game.treatment.stageDuration
+	});
+	
     round.addStage({
-      name: "response",
-      displayName: "Response",
+      name: "response1",
+      displayName: "Response1",
       durationInSeconds: game.treatment.stageDuration
     });
 
-    //only add the interactive stage if it is NOT the solo condition
+	//only add the interactive stage if it is NOT the solo condition
     if (game.treatment.altersCount > 0) {
       round.addStage({
         name: "interactive",
@@ -125,6 +131,62 @@ Empirica.gameInit(game => {
       });
     }
 
+	round.addStage({
+      name: "question2",
+      displayName: "question2",
+      durationInSeconds: game.treatment.stageDuration
+	});
+	
+    round.addStage({
+      name: "response2",
+      displayName: "Response2",
+      durationInSeconds: game.treatment.stageDuration
+	});
+	
+	
+	//only add the interactive stage if it is NOT the solo condition
+    if (game.treatment.altersCount > 0) {
+      round.addStage({
+        name: "interactive",
+        displayName: "Interactive Response2",
+        durationInSeconds: game.treatment.stageDuration
+      });
+    }
+
+	round.addStage({
+      name: "question2",
+      displayName: "question3",
+      durationInSeconds: game.treatment.stageDuration
+	});
+	
+    round.addStage({
+      name: "response2",
+      displayName: "Response3",
+      durationInSeconds: game.treatment.stageDuration
+	});
+	
+	
+	//only add the interactive stage if it is NOT the solo condition
+    if (game.treatment.altersCount > 0) {
+      round.addStage({
+        name: "interactive",
+        displayName: "Interactive Response3",
+        durationInSeconds: game.treatment.stageDuration
+      });
+	}
+	
+	// round.addStage({
+    //   name: "question3",
+    //   displayName: "question3",
+    //   durationInSeconds: game.treatment.stageDuration
+	// });
+	
+    // round.addStage({
+    //   name: "response3",
+    //   displayName: "Response3",
+    //   durationInSeconds: game.treatment.stageDuration
+    // });
+    
     // adding "outcome" might look complicated but basically what we are checking is this:
     // when interactive with others, show the round outcome if there is feedback or rewiring
     // when no interactions with others only show the outcome stage when feedback is given

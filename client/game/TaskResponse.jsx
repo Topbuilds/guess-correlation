@@ -51,15 +51,21 @@ export default class TaskResponse extends React.Component {
     //   const value = Math.round(num * 100) / 100;
       //this.setState({ guess: value });
       //this.throttledGuessUpdate(value);
-      player.round.set("choice", str);
+	  player.round.set("choice", str);
+	  if(0 === player.get("p_id")){
+	  	round.set("answer", str);
+	  }
     }
   };
 
   handleEditTextRelease = str => {
     const { stage, player } = this.props;
     if (stage.name !== "outcome") {
-      player.round.set("choice", str);
-
+	  player.round.set("choice", str);
+	  
+		if(0 === player.get("p_id")){
+			round.set("answer", str);
+		}
     }
   };
 
@@ -98,6 +104,7 @@ export default class TaskResponse extends React.Component {
 			return (
 			<Label>
 				Your current guess of the correlation is: {player.round.get("guess")}
+				
 			</Label>
 			);
 		}
@@ -105,6 +112,7 @@ export default class TaskResponse extends React.Component {
   };
   
   renderCurrentChoice = (round, player) => {
+	  const { game } = this.props;
       if(round.index === 0)
 		{
 			return (
@@ -119,7 +127,9 @@ export default class TaskResponse extends React.Component {
 		{
 			return (
 			<Label>
-				Your current choice of the correlation is: {player.round.get("choice")}
+				{/* Your current choice of the correlation is: {player.round.get("choice")} */}
+				Your current answer of the correlation is: {round.get("answer")}
+				{/* player 1 guess of the correlation is: {game.player[0].round.get("guess")} */}
 			</Label>
 			);
 		}
@@ -240,7 +250,7 @@ export default class TaskResponse extends React.Component {
     }
     const feedbackTime = round.get("displayFeedback");
 	const isOutcome = stage.name === "outcome";
-	// const isOutcome = round.index === 4;
+	// const isOutcome = round.index === 5;
 	const selfFeedback = game.treatment.selfFeedback;
 	
 
@@ -277,11 +287,15 @@ export default class TaskResponse extends React.Component {
 		return (
 		<div className="task-response">
 			<form onSubmit={this.handleSubmit}>
-
 			<FormGroup>
+				{!isOutcome ? this.renderCurrentGuess(round, player) : null}
+				{this.renderSlider(game, player, round, isOutcome)}
+			</FormGroup>
+
+			{/* <FormGroup>
 				{!isOutcome ? this.renderCurrentChoice(round, player) : null}
 				{this.renderEditableText(player, round, isOutcome)}
-			</FormGroup>
+			</FormGroup> */}
 
 			{/*We only show self feedback if it is feedback time & we show individual feedback & it is outcome*/}
 			{isOutcome && feedbackTime && selfFeedback

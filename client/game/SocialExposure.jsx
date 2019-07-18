@@ -6,7 +6,8 @@ import { shuffle } from "shuffle-seed";
 export default class SocialExposure extends React.Component {
   renderSocialInteraction = otherPlayer => {
     // "or 0" here if the user hasn't submitted a guess, defaulting to 0
-    const guess = otherPlayer.round.get("guess");
+	const guess = otherPlayer.round.get("guess");
+
     return (
       <Card className={"alter"} elevation={Elevation.TWO} key={otherPlayer._id}>
         <span className="image">
