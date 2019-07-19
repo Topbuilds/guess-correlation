@@ -6,7 +6,7 @@ import { shuffle } from "shuffle-seed";
 export default class SocialExposure extends React.Component {
   renderSocialInteraction = otherPlayer => {
     // "or 0" here if the user hasn't submitted a guess, defaulting to 0
-	const guess = otherPlayer.round.get("guess");
+	const question = otherPlayer.round.get("question");
 
     return (
       <Card className={"alter"} elevation={Elevation.TWO} key={otherPlayer._id}>
@@ -30,7 +30,7 @@ export default class SocialExposure extends React.Component {
           <img src={otherPlayer.get("avatar")} />
         </span>
 
-        <Slider
+        {/* <Slider
           min={0}
           max={1}
           stepSize={0.01}
@@ -38,7 +38,9 @@ export default class SocialExposure extends React.Component {
           showTrackFill={false}
           disabled
           hideHandleOnEmpty
-        />
+		/> */}
+		
+		<textarea value={question}></textarea>
       </Card>
     );
   };

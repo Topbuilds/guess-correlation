@@ -87,7 +87,9 @@ Empirica.gameInit(game => {
     player.set("cumulativeScore", 0);
     player.set("bonus", 0);
 	player.set("p_id", i);
-	
+	player.set("question", null);
+	player.set("set_concept", null);
+	player.set("guess_concept", null);
     player.set("avatar", getAvatar(player, i, "abstract"));
 
     player.set(
@@ -108,69 +110,38 @@ Empirica.gameInit(game => {
 
     //we set the round with the task data for that round
     round.set("task", tasks[i]);
-	round.set("answer", null);
+	round.set("concept", null);
+
 	//always add the "response stage" which is the independent guess one
 	round.addStage({
-      name: "question1",
-      displayName: "question1",
+	  name: "set concept",
+      displayName: "set concept",
       durationInSeconds: game.treatment.stageDuration
 	});
-	
-    round.addStage({
-      name: "response1",
-      displayName: "Response1",
-      durationInSeconds: game.treatment.stageDuration
-    });
 
 	//only add the interactive stage if it is NOT the solo condition
     if (game.treatment.altersCount > 0) {
       round.addStage({
         name: "interactive",
-        displayName: "Interactive Response",
+        displayName: "Q&A Phases",
         durationInSeconds: game.treatment.stageDuration
       });
-    }
-
-	round.addStage({
-      name: "question2",
-      displayName: "question2",
-      durationInSeconds: game.treatment.stageDuration
-	});
-	
-    round.addStage({
-      name: "response2",
-      displayName: "Response2",
-      durationInSeconds: game.treatment.stageDuration
-	});
-	
+	}
 	
 	//only add the interactive stage if it is NOT the solo condition
     if (game.treatment.altersCount > 0) {
       round.addStage({
         name: "interactive",
-        displayName: "Interactive Response2",
+        displayName: "Q&A Phases",
         durationInSeconds: game.treatment.stageDuration
       });
-    }
+	}
 
-	round.addStage({
-      name: "question2",
-      displayName: "question3",
-      durationInSeconds: game.treatment.stageDuration
-	});
-	
-    round.addStage({
-      name: "response2",
-      displayName: "Response3",
-      durationInSeconds: game.treatment.stageDuration
-	});
-	
-	
 	//only add the interactive stage if it is NOT the solo condition
     if (game.treatment.altersCount > 0) {
       round.addStage({
         name: "interactive",
-        displayName: "Interactive Response3",
+        displayName: "Q&A Phases",
         durationInSeconds: game.treatment.stageDuration
       });
 	}

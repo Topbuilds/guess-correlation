@@ -51,9 +51,10 @@ export default class TaskResponse extends React.Component {
     //   const value = Math.round(num * 100) / 100;
       //this.setState({ guess: value });
       //this.throttledGuessUpdate(value);
-	  player.round.set("choice", str);
+	  player.round.set("question", str);
 	  if(0 === player.get("p_id")){
-	  	round.set("answer", str);
+		player.round.set("set_concept", str);
+	  	round.set("concept", str);
 	  }
     }
   };
@@ -61,10 +62,11 @@ export default class TaskResponse extends React.Component {
   handleEditTextRelease = str => {
     const { stage, player } = this.props;
     if (stage.name !== "outcome") {
-	  player.round.set("choice", str);
+	  player.round.set("question", str);
 	  
 		if(0 === player.get("p_id")){
-			round.set("answer", str);
+			player.round.set("set_concept", str);
+			round.set("concept", str);
 		}
     }
   };
@@ -112,27 +114,27 @@ export default class TaskResponse extends React.Component {
   };
   
   renderCurrentChoice = (round, player) => {
-	  const { game } = this.props;
-      if(round.index === 0)
-		{
-			return (
+	//   const { game } = this.props;
+    //   if(round.index === 0)
+	// 	{
+	// 		return (
 				
-			<Label>
-				Your current concept round 0 is:{player.round.get("choice")}
-			</Label>
+	// 		<Label>
+	// 			Your current concept round 0 is:{player.round.get("question")}
+	// 		</Label>
 
-			);
-		}
-		else
-		{
-			return (
-			<Label>
-				{/* Your current choice of the correlation is: {player.round.get("choice")} */}
-				Your current answer of the correlation is: {round.get("answer")}
-				{/* player 1 guess of the correlation is: {game.player[0].round.get("guess")} */}
-			</Label>
-			);
-		}
+	// 		);
+	// 	}
+	// 	else
+	// 	{
+	// 		return (
+	// 		<Label>
+	// 			{/* Your current choice of the correlation is: {player.round.get("choice")} */}
+	// 			Your current question of the correlation is: {round.get("question")}
+	// 			{/* player 1 guess of the correlation is: {game.player[0].round.get("guess")} */}
+	// 		</Label>
+	// 		);
+	// 	}
   };
 
   renderEditableText(player, round, isOutcome) {
@@ -144,7 +146,7 @@ export default class TaskResponse extends React.Component {
           <EditableText
 		    onChange={this.handleEditTextChange}
             onRelease={this.handleEditTextRelease}
-            value={player.round.get("choice")}
+            value={player.round.get("question")}
             disabled={isOutcome}
             hideHandleOnEmpty
           />
@@ -153,7 +155,7 @@ export default class TaskResponse extends React.Component {
           <EditableText
 		    onChange={this.handleEditTextChange}
             onRelease={this.handleEditTextRelease}
-            value={player.round.get("choice")}
+            value={player.round.get("question")}
             disabled={isOutcome}
             hideHandleOnEmpty
           />
@@ -216,12 +218,12 @@ export default class TaskResponse extends React.Component {
           <tbody>
             <tr>
               <td align="center">
-                {player.round.get("guess") === undefined ||
-                player.round.get("guess") === null
+                {player.round.get("guess_concept") === undefined ||
+                player.round.get("guess_concept") === null
                   ? "No guess given"
-                  : player.round.get("guess")}
+                  : player.round.get("guess_concept")}
               </td>
-              <td>{round.get("task").correctAnswer}</td>
+              <td>{round.get("concept").correctAnswer}</td>
               <td>
                 <strong
                   style={{
@@ -258,10 +260,10 @@ export default class TaskResponse extends React.Component {
 		return (
 		<div className="task-response">
 			<form onSubmit={this.handleSubmit}>
-			<FormGroup>
+			{/* <FormGroup>
 				{!isOutcome ? this.renderCurrentGuess(round, player) : null}
 				{this.renderSlider(game, player, round, isOutcome)}
-			</FormGroup>
+			</FormGroup> */}
 
 			<FormGroup>
 				{!isOutcome ? this.renderCurrentChoice(round, player) : null}
@@ -292,10 +294,10 @@ export default class TaskResponse extends React.Component {
 				{this.renderSlider(game, player, round, isOutcome)}
 			</FormGroup>
 
-			{/* <FormGroup>
+			<FormGroup>
 				{!isOutcome ? this.renderCurrentChoice(round, player) : null}
 				{this.renderEditableText(player, round, isOutcome)}
-			</FormGroup> */}
+			</FormGroup>
 
 			{/*We only show self feedback if it is feedback time & we show individual feedback & it is outcome*/}
 			{isOutcome && feedbackTime && selfFeedback
