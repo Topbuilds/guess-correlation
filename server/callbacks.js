@@ -13,12 +13,18 @@ Empirica.onGameStart(game => {
 // It receives the same options as onGameStart, and the round that is starting.
 Empirica.onRoundStart((game, round) => {
   console.log("round", round.index, "started");
-  game.players.forEach(player => {
+  game.players.forEach((player, i) => {
+	player.round.set("p_id", i);
     player.round.set("alterIds", player.get("alterIds"));
 	player.round.set("guess", null);
 	player.round.set("choice", null);
+	player.round.set("question", null);
+	player.round.set("set_concept", null);
+	player.round.set("guess_concept", null);
 	player.round.set("difficulty", player.get("difficulty"));
 	// console.log("game", player.index, "player id");
+	//player.round.set("p_id", i);
+	//console.log("player", player.p_id, "p_id");
   });
 
   const feedbackTime =

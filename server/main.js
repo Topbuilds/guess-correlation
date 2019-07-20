@@ -112,10 +112,12 @@ Empirica.gameInit(game => {
     round.set("task", tasks[i]);
 	round.set("concept", null);
 
+	
+
 	//always add the "response stage" which is the independent guess one
 	round.addStage({
-	  name: "set concept",
-      displayName: "set concept",
+	  name: "Set concept",
+      displayName: "Set concept",
       durationInSeconds: game.treatment.stageDuration
 	});
 
@@ -123,7 +125,7 @@ Empirica.gameInit(game => {
     if (game.treatment.altersCount > 0) {
       round.addStage({
         name: "interactive",
-        displayName: "Q&A Phases",
+        displayName: "Q&A Phases 1",
         durationInSeconds: game.treatment.stageDuration
       });
 	}
@@ -132,7 +134,7 @@ Empirica.gameInit(game => {
     if (game.treatment.altersCount > 0) {
       round.addStage({
         name: "interactive",
-        displayName: "Q&A Phases",
+        displayName: "Q&A Phases 1",
         durationInSeconds: game.treatment.stageDuration
       });
 	}
@@ -141,11 +143,28 @@ Empirica.gameInit(game => {
     if (game.treatment.altersCount > 0) {
       round.addStage({
         name: "interactive",
-        displayName: "Q&A Phases",
+        displayName: "Q&A Phases 2",
         durationInSeconds: game.treatment.stageDuration
       });
 	}
+
+	//only add the interactive stage if it is NOT the solo condition
+    if (game.treatment.altersCount > 0) {
+      round.addStage({
+        name: "interactive",
+        displayName: "Q&A Phases 3",
+        durationInSeconds: game.treatment.stageDuration
+      });
+	}
+
+
+      round.addStage({
+        name: "Guess concept",
+        displayName: "Guess concept",
+        durationInSeconds: game.treatment.stageDuration
+      });
 	
+
 	// round.addStage({
     //   name: "question3",
     //   displayName: "question3",
