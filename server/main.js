@@ -125,7 +125,7 @@ Empirica.gameInit(game => {
     if (game.treatment.altersCount > 0) {
       round.addStage({
         name: "interactive",
-        displayName: "Q&A Phases 1",
+        displayName: "Question Phases1",
         durationInSeconds: game.treatment.stageDuration
       });
 	}
@@ -134,7 +134,7 @@ Empirica.gameInit(game => {
     if (game.treatment.altersCount > 0) {
       round.addStage({
         name: "interactive",
-        displayName: "Q&A Phases 1",
+        displayName: "Answer Phases1",
         durationInSeconds: game.treatment.stageDuration
       });
 	}
@@ -143,7 +143,7 @@ Empirica.gameInit(game => {
     if (game.treatment.altersCount > 0) {
       round.addStage({
         name: "interactive",
-        displayName: "Q&A Phases 2",
+        displayName: "Question Phases2",
         durationInSeconds: game.treatment.stageDuration
       });
 	}
@@ -152,7 +152,25 @@ Empirica.gameInit(game => {
     if (game.treatment.altersCount > 0) {
       round.addStage({
         name: "interactive",
-        displayName: "Q&A Phases 3",
+        displayName: "Answer Phases2",
+        durationInSeconds: game.treatment.stageDuration
+      });
+	}
+
+	//only add the interactive stage if it is NOT the solo condition
+    if (game.treatment.altersCount > 0) {
+      round.addStage({
+        name: "interactive",
+        displayName: "Question Phases3",
+        durationInSeconds: game.treatment.stageDuration
+      });
+	}
+
+	//only add the interactive stage if it is NOT the solo condition
+    if (game.treatment.altersCount > 0) {
+      round.addStage({
+        name: "interactive",
+        displayName: "Answer Phases3",
         durationInSeconds: game.treatment.stageDuration
       });
 	}
