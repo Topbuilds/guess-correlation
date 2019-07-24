@@ -21,6 +21,7 @@ Empirica.onRoundStart((game, round) => {
 	player.round.set("question", null);
 	player.round.set("set_concept", null);
 	player.round.set("guess_concept", null);
+	player.round.set("category",null)
 	player.round.set("difficulty", player.get("difficulty"));
 	// console.log("game", player.index, "player id");
 	//player.round.set("p_id", i);
