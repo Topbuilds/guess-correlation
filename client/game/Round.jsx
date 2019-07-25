@@ -33,7 +33,7 @@ export default class Round extends React.Component {
             game={game}
           />
           <Task player={player} round={round} stage={stage} game={game} />
-          {social && stage.name === "interactive" ? (
+          {social && stage.name.includes("interactive") ? (
             <SocialExposure
               player={player}
               round={round}

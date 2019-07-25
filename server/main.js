@@ -125,7 +125,7 @@ Empirica.gameInit(game => {
 	//only add the interactive stage if it is NOT the solo condition
     if (game.treatment.altersCount > 0) {
       round.addStage({
-        name: "interactive",
+        name: "interactive 1q",
         displayName: "Question Phases1",
         durationInSeconds: game.treatment.stageDuration
       });
@@ -134,7 +134,7 @@ Empirica.gameInit(game => {
 	//only add the interactive stage if it is NOT the solo condition
     if (game.treatment.altersCount > 0) {
       round.addStage({
-        name: "interactive",
+        name: "interactive 1a",
         displayName: "Answer Phases1",
         durationInSeconds: game.treatment.stageDuration
       });
@@ -143,7 +143,7 @@ Empirica.gameInit(game => {
 	//only add the interactive stage if it is NOT the solo condition
     if (game.treatment.altersCount > 0) {
       round.addStage({
-        name: "interactive",
+        name: "interactive 2q",
         displayName: "Question Phases2",
         durationInSeconds: game.treatment.stageDuration
       });
@@ -152,7 +152,7 @@ Empirica.gameInit(game => {
 	//only add the interactive stage if it is NOT the solo condition
     if (game.treatment.altersCount > 0) {
       round.addStage({
-        name: "interactive",
+        name: "interactive 2a",
         displayName: "Answer Phases2",
         durationInSeconds: game.treatment.stageDuration
       });
@@ -161,7 +161,7 @@ Empirica.gameInit(game => {
 	//only add the interactive stage if it is NOT the solo condition
     if (game.treatment.altersCount > 0) {
       round.addStage({
-        name: "interactive",
+        name: "interactive 3q",
         displayName: "Question Phases3",
         durationInSeconds: game.treatment.stageDuration
       });
@@ -170,7 +170,7 @@ Empirica.gameInit(game => {
 	//only add the interactive stage if it is NOT the solo condition
     if (game.treatment.altersCount > 0) {
       round.addStage({
-        name: "interactive",
+        name: "interactive 3a",
         displayName: "Answer Phases3",
         durationInSeconds: game.treatment.stageDuration
       });

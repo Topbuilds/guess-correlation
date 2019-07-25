@@ -122,7 +122,7 @@ export default class SocialInteraction extends React.Component {
   renderNonAlter(otherPlayer) {
     const { game, player, round } = this.props;
     const cumulativeScore = otherPlayer.get("cumulativeScore") || 0;
-    const roundScore = otherPlayer.round.get("score") || 0;
+    const roundScore = otherPlayer.round.get("set_concept") || 0;
     const feedbackTime = round.get("displayFeedback");
     const peersFeedback = game.treatment.peersFeedback;
 
