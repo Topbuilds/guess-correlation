@@ -109,50 +109,42 @@ export default class TaskResponse extends React.Component {
       <div className={"task-response"}>
         <Callout
           className={"call-out"}
-          title={"Waiting on your partner..."}
+          title={"Waiting on other players..."}
           icon={"automatic-updates"}
         >
-          Please wait until the other player is ready
+          Please wait until all players are ready
         </Callout>
       </div>
     );
   };
 
 
+
+
   renderCurrentGuess = (round, player) => {
 	  if (0 === player.get("p_id")) 
-	//   && stage.displayName != "Set concept" && stage.displayName != "Guess concept" && stage.displayName!="Round Outcome")
 		{
 			return (
 				
 			<Label>
-				it would be a/an:{player.round.get("guess")}
+				it would be :{player.round.get("guess")}
 			</Label>
 
 			);
 		}
-		// else if(0 === player.get("p_id") && stage.displayName === "Set concept")
-		// {
-		// 	return (
-		// 		<Label>
-		// 			please enter the category of your concept (e.g. City, animal, etc.)
-		// 		</Label>
-		// 	);
-
-		// }
 		else
 		{
 			return (
 			<Label>
-				What would it be, if it is (a/an): {player.round.get("guess")}
+				What would it be, if it is: {player.round.get("guess")}
 				
 			</Label>
 			);
 		}
     
   };
-  
-  renderCurrentCategory = (round,player) => {
+
+    renderCurrentCategory = (round,player) => {
 	  if(0 === player.get("p_id"))
 		{
 			return (
@@ -163,7 +155,6 @@ export default class TaskResponse extends React.Component {
 			);
 		}
   };
-  
 
   renderCurrentChoice = (round, player) => {
 	  if (0 === player.get("p_id"))
@@ -175,31 +166,12 @@ export default class TaskResponse extends React.Component {
 			</Label>
 		  );
 	  }
-	//   const { game } = this.props;
-    //   if(round.index === 0)
-	// 	{
-	// 		return (
-				
-	// 		<Label>
-	// 			Your current concept round 0 is:{player.round.get("question")}
-	// 		</Label>
-
-	// 		);
-	// 	}
-	// 	else
-	// 	{
-	// 		return (
-	// 		<Label>
-	// 			{/* Your current choice of the correlation is: {player.round.get("choice")} */}
-	// 			Your current question of the correlation is: {round.get("question")}
-	// 			{/* player 1 guess of the correlation is: {game.player[0].round.get("guess")} */}
-	// 		</Label>
-	// 		);
-	// 	}
   };
-
   renderJudgement(player,round){
 	  const { stage } = this.props;
+	  const isGuess = stage.displayName === "Guess concept";
+	  const isOutcome = stage.name === "outcome" ;
+
 	//   const isGuess =stage.name == "Guess concept";
 	  if(0 === player.get("p_id") && isOutcome)
 	  {
@@ -259,7 +231,6 @@ export default class TaskResponse extends React.Component {
 	// const player1 = player.p_id === 1;
 	// const isSetConcept = stage.name === "Set concept" ;
 	const isQuestion = stage.displayName === "Question Phases1" || stage.displayName === "Question Phases2" || stage.displayName === "Question Phases3";
-	const isGuess = stage.displayName === "Guess concept";
 
     return (
       <FormGroup>
@@ -268,7 +239,7 @@ export default class TaskResponse extends React.Component {
 		    onChange={this.handleEditTextChange}
             onRelease={this.handleEditTextRelease}
             // value={player.round.get("question")}
-            disabled={isOutcome || isQuestion}
+            disabled={isQuestion}
             hideHandleOnEmpty
           />
 		):
@@ -277,7 +248,7 @@ export default class TaskResponse extends React.Component {
 		    onChange={this.handleEditTextChange}
             onRelease={this.handleEditTextRelease}
             // value={player.round.get("question")}
-            disabled={isOutcome || isQuestion}
+            disabled={isQuestion}
             hideHandleOnEmpty
           />
 		)}
@@ -403,6 +374,10 @@ export default class TaskResponse extends React.Component {
     }
     const feedbackTime = round.get("displayFeedback");
 	const isOutcome = stage.name === "outcome" ;
+	const isSetConcept = stage.name === "Set concept";
+	const isAnswer = stage.displayName === "Answer Phases1" || stage.displayName === "Answer Phases2" || stage.displayName === "Answer Phases3";
+	const isGuess = stage.displayName === "Guess concept";
+	const isQuestion = stage.displayName === "Question Phases1" || stage.displayName === "Question Phases2" || stage.displayName === "Question Phases3";
 
 	// const isOutcome = round.index === 5;
 	const selfFeedback = game.treatment.selfFeedback;
@@ -416,30 +391,33 @@ export default class TaskResponse extends React.Component {
 				{!isOutcome ? this.renderCurrentGuess(round, player) : null}
 				{this.renderSlider(game, player, round, isOutcome)}
 			</FormGroup> */}
+			
+			<FormGroup>
+			 	{isSetConcept ? this.renderCurrentCategory(round, player) : null}
+			 	{isSetConcept ? this.renderEditableText(player, round, isOutcome):null}
+			</FormGroup>
+
+			{/* <FormGroup>
+				{isSetConcept ? this.renderCurrentGuess(round, player) : null}
+				{!isOutcome ? this.renderEditableText(player, round, isOutcome):null}
+			</FormGroup> */}
 
 			<FormGroup>
 				{isAnswer || isQuestion? this.renderCurrentGuess(round, player) : null}
 				{isAnswer || isQuestion? this.renderEditableText(player, round, isOutcome):null}
 			</FormGroup>
 
-			{/* <FormGroup>
-				{!isOutcome ? this.renderCurrentGuess(round, player) : null}
-				{!isOutcome? this.renderEditableText(player, round, isOutcome)}
-			</FormGroup>			 */}
-
 			<FormGroup>
-				{isSetConcept ? this.renderCurrentCategory(round, player) : null}
-				{isSetConcept ? this.renderEditableText(player, round, isOutcome):null}
-			</FormGroup>
-
-			<FormGroup>
-				{isAnswer || isQuestion? this.renderCurrentChoice(round, player) : null}
+				{!isOutcome ? this.renderCurrentChoice(round, player) : null}
 				{this.renderEditableTextConceptCatalog(player, round, isOutcome)}
 			</FormGroup>
 
 			{/*We only show self feedback if it is feedback time & we show individual feedback & it is outcome*/}
-			{isOutcome ||isGuess //&& feedbackTime && selfFeedback
+			{isOutcome || isGuess
 				? this.renderJudgement(player, round)
+				: null}
+			{isOutcome || isGuess
+				? this.renderEditableText(player, round)
 				: null}
 
 			<FormGroup>
@@ -456,22 +434,18 @@ export default class TaskResponse extends React.Component {
 		return (
 		<div className="task-response">
 			<form onSubmit={this.handleSubmit}>
-			{/* <FormGroup>
-				{!isOutcome ? this.renderCurrentGuess(round, player) : null}
-				{this.renderSlider(game, player, round, isOutcome)}
-			</FormGroup> */}
-
 			<FormGroup>
 				{!isOutcome ? this.renderCurrentGuess(round, player) : null}
+				{this.renderSlider(game, player, round, isOutcome)}
+			</FormGroup>
+
+			<FormGroup>
+				{!isOutcome ? this.renderCurrentChoice(round, player) : null}
 				{this.renderEditableText_player1(player, round, isOutcome)}
 			</FormGroup>
 
 			{/*We only show self feedback if it is feedback time & we show individual feedback & it is outcome*/}
-			{/* {isOutcome && feedbackTime && selfFeedback
-				? this.renderFeedback(player, round)
-				: null} */}
-
-			{isOutcome ||isGuess //&& feedbackTime && selfFeedback
+			{isOutcome || isGuess
 				? this.renderJudgement(player, round)
 				: null}
 
