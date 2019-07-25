@@ -183,7 +183,11 @@ Empirica.gameInit(game => {
         durationInSeconds: game.treatment.stageDuration
       });
 	
-
+	  round.addStage({
+        name: "Final check interactive",
+        displayName: "Check concept",
+        durationInSeconds: game.treatment.stageDuration
+      });
 	// round.addStage({
     //   name: "question3",
     //   displayName: "question3",

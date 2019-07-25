@@ -77,8 +77,11 @@ export default class TaskResponse extends React.Component {
     if (stage.name !== "outcome") {
     //   const value = Math.round(num * 100) / 100;
       //this.setState({ guess: value });
-      //this.throttledGuessUpdate(value);
-	  player.round.set("question", str);
+	  //this.throttledGuessUpdate(value);
+	  if(stage.name !== "Guess concept")
+		player.round.set("question", str);
+	  else
+		player.round.set("guess_concept", str);
 	//   if(0 === player.get("p_id")){
 	// 	player.round.set("set_concept", str);
 	//   	round.set("concept", str);
@@ -89,7 +92,10 @@ export default class TaskResponse extends React.Component {
   handleEditTextRelease = str => {
     const { stage, player } = this.props;
     if (stage.name !== "outcome") {
-	  player.round.set("question", str);
+	  if(stage.name !== "Guess concept")
+		player.round.set("question", str);
+	  else
+		player.round.set("guess_concept", str);
 	  
 		// if(0 === player.get("p_id")){
 		// 	player.round.set("set_concept", str);
@@ -127,7 +133,7 @@ export default class TaskResponse extends React.Component {
 			return (
 				
 			<Label>
-				it would be :{player.round.get("guess")}
+				it would be :{player.round.get("question")}
 			</Label>
 
 			);
@@ -136,7 +142,7 @@ export default class TaskResponse extends React.Component {
 		{
 			return (
 			<Label>
-				What would it be, if it is: {player.round.get("guess")}
+				What would it be, if it is: {player.round.get("question")}
 				
 			</Label>
 			);
@@ -162,7 +168,7 @@ export default class TaskResponse extends React.Component {
 		  return(
 
 			<Label>
-				your concept is: {player.round.get("choice")}
+				your concept is: {player.round.get("set_concept")}
 			</Label>
 		  );
 	  }
@@ -177,7 +183,7 @@ export default class TaskResponse extends React.Component {
 	  {
 		  return(
 			  <Label>
-				  is it correct? :{player.round.get("guess")}
+				  is it correct? :{player.round.get("guess_concept")}
 			  </Label>
 		  );	  
 	  }
@@ -185,7 +191,7 @@ export default class TaskResponse extends React.Component {
 	  {
 		  return(
 		  <Label>
-			  please make a guess :{player.round.get("guess")}
+			  please make a guess :{player.round.get("guess_concept")}
 		  </Label>
 		  );
 	  }

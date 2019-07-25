@@ -4,10 +4,21 @@ import { Card, Elevation } from "@blueprintjs/core";
 import { shuffle } from "shuffle-seed";
 
 export default class SocialExposure extends React.Component {
-  renderSocialInteraction = (otherPlayer, player) => {
+  renderSocialInteraction = (otherPlayer, player, stage) => {
     // "or 0" here if the user hasn't submitted a guess, defaulting to 0
 	
-	const question = player.round.get("interact_des") + " " + otherPlayer.round.get("question");
+	var question;
+	if(stage.displayName === "Check concept")
+	{
+		if(1 === player.get("p_id"))
+			question = "The correct concept by the other player is: " + otherPlayer.round.get("set_concept");
+		else
+			question = "The guess concept by the other player is: " + otherPlayer.round.get("guess_concept");
+	}
+	else 
+		question = player.round.get("interact_des") + " " + otherPlayer.round.get("question");
+
+
 
     return (
       <Card className={"alter"} elevation={Elevation.TWO} key={otherPlayer._id}>
@@ -47,7 +58,7 @@ export default class SocialExposure extends React.Component {
   };
 
   render() {
-    const { game, player, round } = this.props;
+    const { game, player, round, stage } = this.props;
 
     const alterIds = player.get("alterIds");
     const feedbackTime = round.get("displayFeedback");
@@ -66,7 +77,7 @@ export default class SocialExposure extends React.Component {
           <strong>Your partner:</strong>
         </p>
         {!_.isEmpty(alters)
-          ? alters.map(alter => this.renderSocialInteraction(alter, player))
+          ? alters.map(alter => this.renderSocialInteraction(alter, player, stage))
           : "You are currently NOT following anyone"}
       </div>
     );
