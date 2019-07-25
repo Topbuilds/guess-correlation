@@ -62,7 +62,7 @@ export default class SocialExposure extends React.Component {
     return (
       <div className="social-exposure">
         <p>
-          <strong>You are following:</strong>
+          <strong>Your partner:</strong>
         </p>
         {!_.isEmpty(alters)
           ? alters.map(alter => this.renderSocialInteraction(alter))
