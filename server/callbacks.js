@@ -18,6 +18,12 @@ Empirica.onRoundStart((game, round) => {
     player.round.set("alterIds", player.get("alterIds"));
 	player.round.set("guess", null);
 	player.round.set("choice", null);
+
+	if(i === 0)
+		player.round.set("interact_des", "What would it be, if it is:");
+	else
+		player.round.set("interact_des", "it would be :");
+
 	player.round.set("question", null);
 	player.round.set("set_concept", null);
 	player.round.set("guess_concept", null);

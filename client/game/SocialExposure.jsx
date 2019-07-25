@@ -4,9 +4,10 @@ import { Card, Elevation } from "@blueprintjs/core";
 import { shuffle } from "shuffle-seed";
 
 export default class SocialExposure extends React.Component {
-  renderSocialInteraction = otherPlayer => {
+  renderSocialInteraction = (otherPlayer, player) => {
     // "or 0" here if the user hasn't submitted a guess, defaulting to 0
-	const question = otherPlayer.round.get("question");
+	
+	const question = player.round.get("interact_des") + " " + otherPlayer.round.get("question");
 
     return (
       <Card className={"alter"} elevation={Elevation.TWO} key={otherPlayer._id}>
@@ -65,7 +66,7 @@ export default class SocialExposure extends React.Component {
           <strong>Your partner:</strong>
         </p>
         {!_.isEmpty(alters)
-          ? alters.map(alter => this.renderSocialInteraction(alter))
+          ? alters.map(alter => this.renderSocialInteraction(alter, player))
           : "You are currently NOT following anyone"}
       </div>
     );

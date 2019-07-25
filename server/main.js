@@ -87,9 +87,10 @@ Empirica.gameInit(game => {
     player.set("cumulativeScore", 0);
     player.set("bonus", 0);
 	player.set("p_id", i);
-	player.set("question", null);
-	player.set("set_concept", null);
-	player.set("guess_concept", null);
+	// player.set("question", null);
+	// player.set("interact_des", null);
+	// player.set("set_concept", null);
+	// player.set("guess_concept", null);
     player.set("avatar", getAvatar(player, i, "abstract"));
 
     player.set(
