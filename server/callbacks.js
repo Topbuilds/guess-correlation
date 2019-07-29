@@ -20,15 +20,17 @@ Empirica.onRoundStart((game, round) => {
 	player.round.set("choice", null);
 
 	if(i === 0)
-		player.round.set("interact_des", "What would it be, if it is:");
+		player.round.set("interact_des", "What would it be, if it is...");
 	else
-		player.round.set("interact_des", "it would be :");
+		player.round.set("interact_des", "it would be...");
 
 	player.round.set("question", null);
 	player.round.set("set_concept", null);
 	player.round.set("guess_concept", null);
-	player.round.set("category",null)
+	player.round.set("judgment",null);
+	player.round.set("category",null);
 	player.round.set("difficulty", player.get("difficulty"));
+	player.round.set("score",null);
 	// console.log("game", player.index, "player id");
 	//player.round.set("p_id", i);
 	//console.log("player", player.p_id, "p_id");
@@ -55,7 +57,7 @@ Empirica.onStageStart((game, round, stage) => {
 // It receives the same options as onRoundEnd, and the stage that just ended.
 Empirica.onStageEnd((game, round, stage) => {
   console.log("stage", stage.name, "ended");
-  if (stage.name === "response") {
+  if (stage.displayName === "Round outcome") {
     //to keep track of the initial guess easily for analysis
     game.players.forEach(player => {
       player.round.set("initialGuess", player.round.get("guess"));
@@ -127,6 +129,18 @@ function computeScore(players, round) {
     player.round.set("score", score);
   });
 }
+function computeScore(player,round){
+	const judge = player.round.get("judgment");
+	
+	if (judge === "correct"){
+			player.round.score.set("score",1); 
+		} else if (judge === "incorrect"){
+			player.round.set("score",0);
+			
+		}
+};
+
+
 
 // We sort the players based on their score in this round in order to color code
 // how we display their scores.
