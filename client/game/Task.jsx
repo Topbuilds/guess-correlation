@@ -2,7 +2,6 @@ import React from "react";
 
 import TaskResponse from "./TaskResponse";
 import TaskStimulus from "./TaskStimulus";
-import SocialExposure from "./SocialExposure"
 
 export default class Task extends React.Component {
   render() {
@@ -10,18 +9,8 @@ export default class Task extends React.Component {
 
     return (
       <div className="task">
-        {/* <TaskStimulus round={round} stage={stage} player={player} game={game}/> */}
-        {/* <SocialExposure player={player} round={round} stage={stage} game={game} /> */}
-		 {stage.name.includes("interactive") ? (
-            <SocialExposure
-              player={player}
-              round={round}
-              stage={stage}
-              game={game}
-            />
-          ) : null}
-        
-		<TaskResponse round={round} stage={stage} player={player} game={game} />
+        <TaskStimulus round={round} stage={stage} player={player} game={game}/>
+        <TaskResponse round={round} stage={stage} player={player} game={game} />
       </div>
     );
   }
