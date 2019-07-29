@@ -1,7 +1,8 @@
 import React from "react";
-import Slider from "meteor/empirica:slider";
-import { Card, Elevation } from "@blueprintjs/core";
+// import Slider from "meteor/empirica:slider";
+import { Card, Elevation, Textarea, Text, StyleSheet } from "@blueprintjs/core";
 import { shuffle } from "shuffle-seed";
+
 
 export default class SocialExposure extends React.Component {
   renderSocialInteraction = (otherPlayer, player, stage) => {
@@ -52,7 +53,14 @@ export default class SocialExposure extends React.Component {
           hideHandleOnEmpty
 		/> */}
 		
-		<textarea value={question}></textarea>
+		{/* <textarea rows="5" cols="30" style="font-size: 18pt">Hello World!</textarea>  */}
+
+		<Text id="textId"  rows="50" cols="60" style="font-size: 36pt">{question}</Text>
+		
+		{/* document.getElementById("textMy").innerHTML = value={question} */}
+
+		{/* <Textarea style="font-size:80px"  value={question}></Textarea> */}
+		
       </Card>
     );
   };
