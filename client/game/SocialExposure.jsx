@@ -3,7 +3,17 @@ import Slider from "meteor/empirica:slider";
 import { Card, Elevation } from "@blueprintjs/core";
 import { shuffle } from "shuffle-seed";
 
+// const useStyles = makeStyles({
+// 	card: {
+// 		minWidth: 275,
+// 	},
+// 	pos: {
+// 		marginBottom: 12,
+// 	},
+// });
+
 export default class SocialExposure extends React.Component {
+
   renderSocialInteraction = (otherPlayer, player, stage) => {
     // "or 0" here if the user hasn't submitted a guess, defaulting to 0
 	
@@ -15,7 +25,21 @@ export default class SocialExposure extends React.Component {
 		else
 			question = "The guess concept by the other player is: " + otherPlayer.round.get("guess_concept");
 	}
-	else 
+	else if (stage.displayName === "Question Phases1")
+	{
+		if(1 === player.get("p_id"))
+			question = "Your partner is thinking about a particular " + otherPlayer.round.get("question");
+		else
+		    question = "What would it be, if it is..."
+	}
+	else if(stage.displayName === "Round Outcome")
+	{
+		if(1 === player.get("p_id"))
+			question = "Your guess is: " + otherPlayer.round.get("judgment") + ". Please click next to continue";
+		else
+		    question = "please click next to continue..."
+	}
+	else
 		question = player.round.get("interact_des") + " " + otherPlayer.round.get("question");
 
 
@@ -51,9 +75,10 @@ export default class SocialExposure extends React.Component {
           disabled
           hideHandleOnEmpty
 		/> */}
-		
-		<textarea value={question}></textarea>
-      </Card>
+
+
+      <textarea rows = "15" cols ="80" style ="font-size:40px" value={question} ></textarea>
+	  </Card>
     );
   };
 
