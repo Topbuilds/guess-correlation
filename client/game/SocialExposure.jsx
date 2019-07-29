@@ -22,7 +22,7 @@ export default class SocialExposure extends React.Component {
 
 
     return (
-      <Card className={"alter"} elevation={Elevation.TWO} key={otherPlayer._id}>
+      <Card className={"alter"} elevation={Elevation.THREE} key={otherPlayer._id}>
         <span className="image">
           <span
             className={`satisfied bp3-tag bp3-round ${
@@ -55,7 +55,7 @@ export default class SocialExposure extends React.Component {
 		
 		{/* <textarea rows="5" cols="30" style="font-size: 18pt">Hello World!</textarea>  */}
 
-		<Text id="textId"  rows="50" cols="60" style="font-size: 36pt">{question}</Text>
+		<Text id="textId"  rows="50" cols="60" style="font-size: 50pt, fontWeight: 'bold'">{question}</Text>
 		
 		{/* document.getElementById("textMy").innerHTML = value={question} */}
 
