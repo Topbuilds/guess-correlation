@@ -1,10 +1,19 @@
 import React from "react";
-// import Slider from "meteor/empirica:slider";
-import { Card, Elevation, Textarea, Text, StyleSheet } from "@blueprintjs/core";
+import Slider from "meteor/empirica:slider";
+import { Card, Elevation } from "@blueprintjs/core";
 import { shuffle } from "shuffle-seed";
 
+// const useStyles = makeStyles({
+// 	card: {
+// 		minWidth: 275,
+// 	},
+// 	pos: {
+// 		marginBottom: 12,
+// 	},
+// });
 
 export default class SocialExposure extends React.Component {
+
   renderSocialInteraction = (otherPlayer, player, stage) => {
     // "or 0" here if the user hasn't submitted a guess, defaulting to 0
 	
@@ -16,13 +25,27 @@ export default class SocialExposure extends React.Component {
 		else
 			question = "The guess concept by the other player is: " + otherPlayer.round.get("guess_concept");
 	}
-	else 
+	else if (stage.displayName === "Question Phases1")
+	{
+		if(1 === player.get("p_id"))
+			question = "Your partner is thinking about a particular " + otherPlayer.round.get("category");
+		else
+		    question = "What would it be, if it is..." + otherPlayer.round.get("question");
+	}
+	else if(stage.displayName === "Round Outcome")
+	{
+		if(1 === player.get("p_id"))
+			question = "Your guess is: " + otherPlayer.round.get("judgment") + ". Please click next to continue";
+		else
+		    question = "please click next to continue..."
+	}
+	else
 		question = player.round.get("interact_des") + " " + otherPlayer.round.get("question");
 
 
 
     return (
-      <Card className={"alter"} elevation={Elevation.THREE} key={otherPlayer._id}>
+      <Card className={"alter"} elevation={Elevation.TWO} key={otherPlayer._id}>
         <span className="image">
           <span
             className={`satisfied bp3-tag bp3-round ${
@@ -52,16 +75,11 @@ export default class SocialExposure extends React.Component {
           disabled
           hideHandleOnEmpty
 		/> */}
-		
-		{/* <textarea rows="5" cols="30" style="font-size: 18pt">Hello World!</textarea>  */}
 
-		<Text id="textId"  rows="50" cols="60" style="font-size: 50pt, fontWeight: 'bold'">{question}</Text>
-		
-		{/* document.getElementById("textMy").innerHTML = value={question} */}
 
-		{/* <Textarea style="font-size:80px"  value={question}></Textarea> */}
-		
-      </Card>
+	  <textarea rows = "10" cols ="40" value={question} ></textarea> 
+	  {/*<Text id="textId"  rows="50" cols="60" style="font-size: 50pt, fontWeight: 'bold'">{question}</Text>*/}
+	  </Card>
     );
   };
 
