@@ -209,7 +209,7 @@ Empirica.gameInit(game => {
       (game.treatment.altersCount === 0 && game.treatment.feedbackRate > 0)
     ) {
       round.addStage({
-        name: "outcome",
+        name: "outcome interactive",
         displayName: "Round Outcome",
         durationInSeconds: game.treatment.stageDuration
       });
