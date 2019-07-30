@@ -111,9 +111,8 @@ Empirica.gameInit(game => {
 
     //we set the round with the task data for that round
     round.set("task", tasks[i]);
-	round.set("concept", null);
-
-	
+	round.set("judgment", null);
+	round.set("round_score", 0);
 
 	//always add the "response stage" which is the independent guess one
 	round.addStage({

@@ -5,7 +5,7 @@ import Empirica from "meteor/empirica:core";
 // the game.
 Empirica.onGameStart(game => {
   game.set("justStarted", true); // I use this to play the sound on the UI when the game starts
-  game.set("concept", 0);
+  
   console.log("game", game._id, "started");
 });
 
@@ -13,6 +13,7 @@ Empirica.onGameStart(game => {
 // It receives the same options as onGameStart, and the round that is starting.
 Empirica.onRoundStart((game, round) => {
   console.log("round", round.index, "started");
+  round.set("round_score", 0);
   game.players.forEach((player, i) => {
 	player.round.set("p_id", i);
     player.round.set("alterIds", player.get("alterIds"));
@@ -27,10 +28,11 @@ Empirica.onRoundStart((game, round) => {
 	player.round.set("question", null);
 	player.round.set("set_concept", null);
 	player.round.set("guess_concept", null);
-	player.round.set("judgment",null);
+	// player.round.set("judgment",null);
 	player.round.set("category",null);
 	player.round.set("difficulty", player.get("difficulty"));
-	player.round.set("score",null);
+	// player.round.set("round_score",0);
+
 	// console.log("game", player.index, "player id");
 	//player.round.set("p_id", i);
 	//console.log("player", player.p_id, "p_id");
@@ -57,29 +59,34 @@ Empirica.onStageStart((game, round, stage) => {
 // It receives the same options as onRoundEnd, and the stage that just ended.
 Empirica.onStageEnd((game, round, stage) => {
   console.log("stage", stage.name, "ended");
-  if (stage.displayName === "Round outcome") {
-    //to keep track of the initial guess easily for analysis
-    game.players.forEach(player => {
-      player.round.set("initialGuess", player.round.get("guess"));
-    });
-    computeScore(game.players, round);
-  } else if (stage.name === "interactive") {
-    //after the 'interactive' stage, we compute the score and color it
-    computeScore(game.players, round);
-    if (game.treatment.altersCount > 0 && round.get("displayFeedback")) {
-      colorScores(game.players);
-    }
-  }
+//   if (stage.displayName === "Round outcome") {
+//     //to keep track of the initial guess easily for analysis
+//     game.players.forEach(player => {
+//       player.round.set("initialGuess", player.round.get("guess"));
+//     });
+//     computeScore(game.players, round);
+//   } 
+    if (stage.name.includes("outcome")) {
+		//after the 'interactive' stage, we compute the score and color it
+		// computeScore(game.players, round);
+		// if (game.treatment.altersCount > 0 && round.get("displayFeedback")) {
+		// 	colorScores(game.players);
+    	// }
+  	}
 });
 
 // onRoundEnd is triggered after each round.
 // It receives the same options as onGameEnd, and the round that just ended.
 Empirica.onRoundEnd((game, round) => {
   console.log("round", round.index, "ended");
+
+  computeScore(game.players, round);
+
   game.players.forEach(player => {
     const currentScore = player.get("cumulativeScore");
-    const roundScore = player.round.get("score");
-    const cumScore = Math.round((currentScore + roundScore) * 10) / 10;
+    const roundScore = round.get("round_score");
+	// const cumScore = Math.round((currentScore + roundScore) * 10) / 10;
+	const cumScore = currentScore + roundScore;
     player.set("cumulativeScore", cumScore);
   });
 
@@ -129,15 +136,20 @@ Empirica.onGameEnd(game => {
     player.round.set("score", score);
   });
 }*/
+
 function computeScore(player,round){
-	const judge = player.round.get("judgment");
 	
-	if (judge === "correct"){
-			player.round.set("score",1); 
-		} else if (judge === "incorrect"){
-			player.round.set("score",0);
+	const judge = round.get("judgment");
+	console.log("judge: ", judge);
+	console.log("round_score: ", round.get("round_score"));
+	
+	if (judge === "correct"){	
 			
-		}
+		round.set("round_score", 10); 
+	} 
+	else if (judge === "incorrect"){
+		round.set("round_score",0);		
+	}
 };
 
 
@@ -163,8 +175,8 @@ function colorScores(players) {
 
 // Helper function to sort players objects based on their score in the current round.
 function compareScores(firstPlayer, secondPlayer) {
-  const scoreA = firstPlayer.round.get("score");
-  const scoreB = secondPlayer.round.get("score");
+  const scoreA = firstPlayer.round.get("round_score");
+  const scoreB = secondPlayer.round.get("round_score");
 
   let comparison = 0;
   if (scoreA > scoreB) {

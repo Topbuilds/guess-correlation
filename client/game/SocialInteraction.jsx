@@ -85,7 +85,7 @@ export default class SocialInteraction extends React.Component {
   renderLeftColumn(player, alterIds, feedbackTime) {
     const { game } = this.props;
     const cumulativeScore = player.get("cumulativeScore") || 0;
-    const roundScore = player.round.get("answer") || 0;
+    const roundScore = player.round.get("score") || 0;
     const peersFeedback = game.treatment.peersFeedback;
 
     return (
@@ -122,7 +122,7 @@ export default class SocialInteraction extends React.Component {
   renderNonAlter(otherPlayer) {
     const { game, player, round } = this.props;
     const cumulativeScore = otherPlayer.get("cumulativeScore") || 0;
-    const roundScore = otherPlayer.round.get("set_concept") || 0;
+    const roundScore = otherPlayer.round.get("score") || 0;
     const feedbackTime = round.get("displayFeedback");
     const peersFeedback = game.treatment.peersFeedback;
 

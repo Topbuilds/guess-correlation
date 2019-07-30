@@ -73,12 +73,12 @@ export default class TaskResponse extends React.Component {
   };
 
    handleEditTextChange = str => {
-    const { stage, player } = this.props;
+    const { round, stage, player } = this.props;
     if (stage.displayName !== "Round outcome") {
 	  if(stage.displayName === "Guess concept")
 		  player.round.set("guess_concept", str);
 	  if(stage.displayName === "Check concept")
-		  player.round.set("judgment",str)
+		  round.set("judgment",str)
 	  else
 	      player.round.set("question",str);
 	  }
