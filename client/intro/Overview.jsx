@@ -17,7 +17,7 @@ export default class Overview extends React.Component {
         <div className="instructions">
           <h1 className={"bp3-heading"}> Game overview </h1>
           <p>
-            After completing the instructions and comprehension check, you will
+            After completing the instructions, you will
             begin the game.
           </p>
           <p>
@@ -28,25 +28,24 @@ export default class Overview extends React.Component {
                 and you will play simultaneously{" "}
                 <strong>
                   {" "}
-                  with {game.treatment.playerCount} other MTurk workers
+                  with {game.treatment.playerCount} other MTurk worker
                 </strong>
               </span>
-            ) : null}
-            . At each round you will see a scatter plot and be asked to{" "}
-            <strong>estimate the correlation of the X and Y variables</strong>.
-          </p>
-          <div align="center">
-            <img src="/instructions/height-age.png" width="500px" />
-          </div>
-          <p>
-            <strong>What is a correlation?</strong>
-            <br />
-            <a href="https://en.wikipedia.org/wiki/Pearson_product-moment_correlation_coefficient">
-              Correlation{" "}
-            </a>{" "}
-            measures how closely related two variables are. For the example
-            above, if tall kids tend to be heavy, and short kids tend to be
-            light, we would say that height and weight are correlated.
+			) : null}
+			<p>
+					In this game, you'll be either a {"  "}
+					<strong>guesser</strong> or a {"  "}
+					<strong>thinker</strong>.
+					<br />
+					At the beginning of each round, the thinker will be prompted to give a common 
+					concept (e.g., New York, Jesus, etc.). Meanwhile, the thinker should enter the category 
+					of that concept (e.g., city, person, etc.)
+					The guesser will be notified the category of that concept and ask the thinker a
+					question like "what would it be, if it is a X(e.g.,profession)?" Then the thinker should reply
+					with a particular entity in X (e.g., teacher) that best describes the concept he/she is thinking about.
+					At the end of each round, the guesser will make a guess about that concept.  
+					<strong>This is a collaborative game and if the guesser get it right both of you will win bonus for it.</strong>
+			</p>
           </p>
 
           <ButtonGroup className={"button-group"}>

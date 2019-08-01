@@ -1,7 +1,7 @@
 import React from "react";
 
 import TaskResponse from "./TaskResponse";
-import TaskStimulus from "./TaskStimulus";
+// import TaskStimulus from "./TaskStimulus";
 import SocialExposure from "./SocialExposure"
 
 export default class Task extends React.Component {

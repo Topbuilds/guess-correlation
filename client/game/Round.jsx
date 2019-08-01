@@ -1,8 +1,8 @@
 import React from "react";
 
 import PlayerProfile from "./PlayerProfile";
-import SocialExposure from "./SocialExposure";
-import SocialInteraction from "./SocialInteraction.jsx";
+// import SocialExposure from "./SocialExposure";
+// import SocialInteraction from "./SocialInteraction.jsx";
 import Task from "./Task";
 
 const roundSound = new Audio("sounds/round-sound.mp3");

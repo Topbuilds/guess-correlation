@@ -1,6 +1,5 @@
 import React from "react";
-import Slider from "meteor/empirica:slider";
-import { Card, Elevation } from "@blueprintjs/core";
+import { Card, Elevation, textarea} from "@blueprintjs/core";
 import { shuffle } from "shuffle-seed";
 
 // const useStyles = makeStyles({
@@ -14,7 +13,7 @@ import { shuffle } from "shuffle-seed";
 
 export default class SocialExposure extends React.Component {
 
-  renderSocialInteraction = (otherPlayer, player, stage) => {
+  renderSocialInteraction = (otherPlayer, player, stage, round) => {
     // "or 0" here if the user hasn't submitted a guess, defaulting to 0
 	
 	var question;
@@ -25,22 +24,27 @@ export default class SocialExposure extends React.Component {
 		else
 			question = "The guess concept by the other player is: " + otherPlayer.round.get("guess_concept");
 	}
-	else if (stage.displayName === "Question Phases1")
+	else if (stage.name === "interactive 1q")
 	{
 		if(1 === player.get("p_id"))
 			question = "Your partner is thinking about a particular " + otherPlayer.round.get("category");
 		else
-		    question = "What would it be, if it is..." + otherPlayer.round.get("question");
+			question = "What would it be, if it is..." + otherPlayer.stage.get("stage_question");
+		    // question = "What would it be, if it is..." + otherPlayer.round.get("question");
 	}
 	else if(stage.displayName === "Round Outcome")
 	{
 		if(1 === player.get("p_id"))
-			question = "Your guess is: " + otherPlayer.round.get("judgment") + ". Please click next to continue";
+			question = "Your guess is: " + round.get("judgment") + ". Please click next to continue";
 		else
 		    question = "please click next to continue..."
 	}
+	else if(1===player.get("p_id"))
+		question = player.round.get("interact_des") + " " + otherPlayer.stage.get("stage_answer");
+		// question = player.round.get("interact_des") + " " + otherPlayer.round.get("answer");
 	else
-		question = player.round.get("interact_des") + " " + otherPlayer.round.get("question");
+		question = player.round.get("interact_des")+ "  " + otherPlayer.stage.get("stage_question");
+	    // question = player.round.get("interact_des")+ "  " + otherPlayer.round.get("question");
 
 
 
@@ -66,19 +70,9 @@ export default class SocialExposure extends React.Component {
           <img src={otherPlayer.get("avatar")} />
         </span>
 
-        {/* <Slider
-          min={0}
-          max={1}
-          stepSize={0.01}
-          value={guess || undefined}
-          showTrackFill={false}
-          disabled
-          hideHandleOnEmpty
-		/> */}
-
-
-	  <textarea rows = "10" cols ="40" value={question} ></textarea> 
+	  <textarea rows = "7" cols ="50" value={question} ></textarea> 
 	  {/*<Text id="textId"  rows="50" cols="60" style="font-size: 50pt, fontWeight: 'bold'">{question}</Text>*/}
+	  
 	  </Card>
     );
   };
@@ -103,7 +97,7 @@ export default class SocialExposure extends React.Component {
           <strong>Your partner:</strong>
         </p>
         {!_.isEmpty(alters)
-          ? alters.map(alter => this.renderSocialInteraction(alter, player, stage))
+          ? alters.map(alter => this.renderSocialInteraction(alter, player, stage,round))
           : "You are currently NOT following anyone"}
       </div>
     );

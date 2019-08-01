@@ -14,6 +14,8 @@ Empirica.onGameStart(game => {
 Empirica.onRoundStart((game, round) => {
   console.log("round", round.index, "started");
   round.set("round_score", 0);
+  round.set("judgment", null);
+
   game.players.forEach((player, i) => {
 	player.round.set("p_id", i);
     player.round.set("alterIds", player.get("alterIds"));
@@ -25,17 +27,13 @@ Empirica.onRoundStart((game, round) => {
 	else
 		player.round.set("interact_des", "it would be...");
 
+	player.round.set("last_stage_question", null);
+	player.round.set("last_stage_answer", null);
 	player.round.set("question", null);
 	player.round.set("set_concept", null);
 	player.round.set("guess_concept", null);
-	// player.round.set("judgment",null);
 	player.round.set("category",null);
 	player.round.set("difficulty", player.get("difficulty"));
-	// player.round.set("round_score",0);
-
-	// console.log("game", player.index, "player id");
-	//player.round.set("p_id", i);
-	//console.log("player", player.p_id, "p_id");
   });
 
   const feedbackTime =
@@ -54,25 +52,29 @@ Empirica.onRoundStart((game, round) => {
 // It receives the same options as onRoundStart, and the stage that is starting.
 Empirica.onStageStart((game, round, stage) => {
   console.log("stage", stage.name, "started");
+
+  game.players.forEach((player) => {
+   		player.stage.set("stage_question", player.round.get("last_stage_question"));
+   		player.stage.set("stage_answer", player.round.get("last_stage_answer"));
+   });
 });
 
 // It receives the same options as onRoundEnd, and the stage that just ended.
 Empirica.onStageEnd((game, round, stage) => {
-  console.log("stage", stage.name, "ended");
-//   if (stage.displayName === "Round outcome") {
-//     //to keep track of the initial guess easily for analysis
-//     game.players.forEach(player => {
-//       player.round.set("initialGuess", player.round.get("guess"));
-//     });
-//     computeScore(game.players, round);
-//   } 
-    if (stage.name.includes("outcome")) {
+	console.log("stage", stage.name, "ended");
+	
+	game.players.forEach((player) => {
+   		player.round.set("last_stage_question", player.stage.get("stage_question"));
+   		player.round.set("last_stage_answer", player.stage.get("stage_answer"));
+   });
+
+	// if(stage.name.includes("outcome")) {
 		//after the 'interactive' stage, we compute the score and color it
 		// computeScore(game.players, round);
 		// if (game.treatment.altersCount > 0 && round.get("displayFeedback")) {
 		// 	colorScores(game.players);
     	// }
-  	}
+  	// }
 });
 
 // onRoundEnd is triggered after each round.
@@ -80,7 +82,8 @@ Empirica.onStageEnd((game, round, stage) => {
 Empirica.onRoundEnd((game, round) => {
   console.log("round", round.index, "ended");
 
-  computeScore(game.players, round);
+  // compute this round score for the players
+  computeScore(round);
 
   game.players.forEach(player => {
     const currentScore = player.get("cumulativeScore");
@@ -118,33 +121,14 @@ Empirica.onGameEnd(game => {
   });
 });
 
-// These are just some helper functions for the Guess the Correlation Game
-// compute score.
-/*function computeScore(players, round) {
-  const correctAnswer = round.get("task").correctAnswer;
 
-  players.forEach(player => {
-    const guess = player.round.get("guess");
-    // If no guess given, score is 0
-    const error =
-      guess === undefined || guess === null
-        ? 1
-        : Math.abs(correctAnswer - guess);
-
-    const score = Math.round((1 - error) * 10) / 10;
-
-    player.round.set("score", score);
-  });
-}*/
-
-function computeScore(player,round){
+function computeScore(round){
 	
 	const judge = round.get("judgment");
 	console.log("judge: ", judge);
 	console.log("round_score: ", round.get("round_score"));
 	
 	if (judge === "correct"){	
-			
 		round.set("round_score", 10); 
 	} 
 	else if (judge === "incorrect"){
@@ -152,40 +136,38 @@ function computeScore(player,round){
 	}
 };
 
-
-
 // We sort the players based on their score in this round in order to color code
 // how we display their scores.
 // The highest 1/3 players are green, the lowest 1/3 are red, and the rest are orange.
-function colorScores(players) {
-  const sortedPlayers = players.sort(compareScores);
-  const top3rd = Math.floor(players.length / 3);
-  const bottom3rd = Math.floor(players.length - players.length / 3);
+// function colorScores(players) {
+//   const sortedPlayers = players.sort(compareScores);
+//   const top3rd = Math.floor(players.length / 3);
+//   const bottom3rd = Math.floor(players.length - players.length / 3);
 
-  sortedPlayers.forEach((player, i) => {
-    if (i < top3rd) {
-      player.round.set("scoreColor", "green");
-    } else if (i >= bottom3rd) {
-      player.round.set("scoreColor", "red");
-    } else {
-      player.round.set("scoreColor", "orange");
-    }
-  });
-}
+//   sortedPlayers.forEach((player, i) => {
+//     if (i < top3rd) {
+//       player.round.set("scoreColor", "green");
+//     } else if (i >= bottom3rd) {
+//       player.round.set("scoreColor", "red");
+//     } else {
+//       player.round.set("scoreColor", "orange");
+//     }
+//   });
+// }
 
 // Helper function to sort players objects based on their score in the current round.
-function compareScores(firstPlayer, secondPlayer) {
-  const scoreA = firstPlayer.round.get("round_score");
-  const scoreB = secondPlayer.round.get("round_score");
+// function compareScores(firstPlayer, secondPlayer) {
+//   const scoreA = firstPlayer.round.get("round_score");
+//   const scoreB = secondPlayer.round.get("round_score");
 
-  let comparison = 0;
-  if (scoreA > scoreB) {
-    comparison = -1;
-  } else if (scoreA < scoreB) {
-    comparison = 1;
-  }
-  return comparison;
-}
+//   let comparison = 0;
+//   if (scoreA > scoreB) {
+//     comparison = -1;
+//   } else if (scoreA < scoreB) {
+//     comparison = 1;
+//   }
+//   return comparison;
+// }
 
 // Shocking the players by changing the difficulty of the problem that they see
 // -1 permutation: easy => hard; medium => easy; hard => medium.

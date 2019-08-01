@@ -19,13 +19,13 @@ import InteractiveGuessStage from "./intro/InteractiveGuessStage";
 import OutcomeStage from "./intro/OutcomeStage";
 
 // Set the Consent Component you want to present players (optional).
-// Empirica.consent(Consent);
+Empirica.consent(Consent);
 
 // Introduction pages to show before they play the game (optional).
 // At this point they have been assigned a treatment. You can return
 // different instruction steps depending on the assigned treatment.
-// Empirica.introSteps(game => {
-//   const steps = [Overview, YourGuessStage];
+Empirica.introSteps(game => {
+  const steps = [Overview, YourGuessStage];
 
 //   if (game.treatment.altersCount > 1) {
 //     steps.push(InteractiveGuessStage);
@@ -34,9 +34,9 @@ import OutcomeStage from "./intro/OutcomeStage";
 //     steps.push(OutcomeStage);
 //   }
 //   steps.push(MoreAboutCorrelations);
-//   steps.push(Quiz);
-//   return steps;
-// });
+  steps.push(Quiz);
+  return steps;
+});
 
 // The Round component containing the game UI logic.
 // This is where you will be doing the most development.

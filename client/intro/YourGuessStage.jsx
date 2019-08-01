@@ -114,74 +114,84 @@ export default class YourGuessStage extends React.Component {
           <p>
             You will play <strong>{game.treatment.nRounds} rounds</strong> total
             {nStages > 1
-              ? " and each round will consist of " + nStages + " stages."
+              ? " and each round will consist of a set concept stage, 10 Question & Answer stage, a guess concept stage, a check concept stage, and an outcome stage ."
               : "."}
           </p>
 
-          <h3 className="bp3-heading">1. The Response Stage</h3>
+          <h3 className="bp3-heading">1. The Set Concept Stage</h3>
 
           <p>
-            In the <strong>Response</strong> stage you will be shown a
-            correlation like the one shown below. You will be able to use the
-            slider to pick a value, and then click <strong>Submit</strong> when
-            you are ready. You can take maximum{" "}
+            In the <strong>Set concept</strong> stage the thinker will be prompted to 
+			enter a concept he/she is thinking about (e.g., New York). Also, the thinker should enter the category (e.g., city) of that concept.
+			Both of you will be able to click <strong>Submit</strong> whenever you are ready to move on. You can take maximum{" "}
             <strong>{game.treatment.stageDuration}</strong> seconds to submit
             your answer. The <strong>tick mark</strong> by the avatar indicates
             whether a final answer have been submitted for this stage.
           </p>
+                <div className="task-stimulus">
+                  <img src="/instructions/set_concept.gif" className="task-image" />
+                </div>
+		  <h3 className="bp3-heading">2. The Question Stages</h3>
 
+          <p>
+            In the <strong>Question </strong> stages the guesser will ask the thinker a question about that concept, like 
+			"what would it be, if it is a X?" (e.g., color). 
+			In this stage, the thinker could feel free to click "submit" anytime. 
+          </p>
+                <div className="task-stimulus">
+                  <img src="/instructions/question.gif" className="task-image" />
+                </div>
+
+		  <h3 className="bp3-heading">3. The Answer Stages</h3>
+
+          <p>
+            In the <strong>Answer</strong> stage the thinker will be answering the question asked by the guesser. For example, the thinker
+			might feel "gold" is the color that New York would be.
+			In this stage, the guesser could feel free to click "submit" anytime. 
+          </p>
+                <div className="task-stimulus">
+                  <img src="/instructions/answer.gif" className="task-image" />
+                </div>
+		  <h3 className="bp3-heading">4. The Guess concept stage</h3>
+
+          <p>
+            In the <strong>Guess concept</strong> stage the guesser will be prompted to make a guess about the concept.
+          </p>
+                <div className="task-stimulus">
+                  <img src="/instructions/guess_concept.gif" className="task-image" />
+                </div>
+
+		  <h3 className="bp3-heading">5. The Check concept stage</h3>
+
+          <p>
+            In the <strong>Check concept</strong> stage, the thinker would be able to see the guesser's answer, 
+			and the guesser would be able to see the thinker's concept.
+			
+          </p>
+                <div className="task-stimulus">
+                  <img src="/instructions/check_concept.gif" className="task-image" />
+                </div>
+		  <h3 className="bp3-heading">6. The Round outcome stage</h3>
+
+          <p>
+            In the <strong>Round outcome</strong> stage, the guesser would be notified whether he/she is correct. Clicking on "next" would lead to the next round.
+          </p>
+                <div className="task-stimulus">
+                  <img src="/instructions/round_outcome.gif" className="task-image" />
+                </div>
           <div className="round">
             <div className="content">
               {/*Here is the playerProfile*/}
-              <Card className={"player-profile"} style={{ width: "15rem" }}>
-                <aside>
-                  <div className="profile-score">
-                    <h3 className="bp3-heading">Your Profile</h3>
-                    <span className="image">
-                      <span
-                        className={`satisfied bp3-tag bp3-round ${
-                          this.state.submitted
-                            ? "bp3-intent-success"
-                            : "bp3-intent-primary"
-                        }`}
-                      >
-                        <span
-                          className={`bp3-icon-standard ${
-                            this.state.submitted
-                              ? "bp3-icon-tick"
-                              : "bp3-icon-refresh"
-                          }`}
-                        />
-                      </span>
-
-                      <img
-                        className="profile-avatar"
-                        src={`/avatars/jdenticon/${player._id}`}
-                      />
-                    </span>
-                  </div>
-                  {/*We always show individual level feedback*/}
-                  {/*We show individual level feedback only in some cases*/}
-                  {game.treatment.feedbackRate > 0 &&
-                  game.treatment.selfFeedback ? (
-                    <div className="profile-score">
-                      <h4 className="bp3-heading">Total score</h4>
-                      <Icon icon="dollar" iconSize={20} title={"dollar-sign"} />
-                      <span>{player.get("instructionsCumulativeScore")}</span>
-                    </div>
-                  ) : null}
-                  {renderTimer(remainingSeconds)}
-                </aside>
-              </Card>
+              
 
               <div className="task">
-                <div className="task-stimulus">
+                {/* <div className="task-stimulus">
                   <img src="/instructions/task.png" className="task-image" />
-                </div>
+                </div> */}
 
                 <div className="task-response">
-                  <form onSubmit={this.handleSubmit}>
-                    <FormGroup>
+                  {/* <form onSubmit={this.handleSubmit}> */}
+                    {/* <FormGroup>
                       <Label>
                         Your current guess of the correlation is: {guess}
                       </Label>
@@ -197,9 +207,9 @@ export default class YourGuessStage extends React.Component {
                         hideHandleOnEmpty
                         disabled={this.state.submitted}
                       />
-                    </FormGroup>
+                    </FormGroup> */}
 
-                    {this.state.submitted ? (
+                    {/* {this.state.submitted ? (
                       <FormGroup>
                         <Button
                           icon={"refresh"}
@@ -208,8 +218,8 @@ export default class YourGuessStage extends React.Component {
                           large={true}
                           fill={true}
                           onClick={this.handleReset}
-                        >
-                          <span>
+                        > */}
+                          {/* <span>
                             try again (will not be available in the game)
                           </span>
                         </Button>
@@ -225,8 +235,8 @@ export default class YourGuessStage extends React.Component {
                           Submit
                         </Button>
                       </FormGroup>
-                    )}
-                  </form>
+                    )} */}
+                  {/* </form> */}
                 </div>
               </div>
             </div>
