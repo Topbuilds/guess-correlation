@@ -2,14 +2,16 @@ import React from "react";
 
 import { StageTimeWrapper } from "meteor/empirica:core";
 import Timer from "./Timer.jsx";
-
+import PlayerProfile from "./PlayerProfile.jsx";
+// import ExitSurvey from "./exit/ExitSurvey";
 class timer extends React.Component {
   render() {
-    const { remainingSeconds } = this.props;
-
+	const { player, game, remainingSeconds } = this.props;
     const classes = ["timer"];
-    if (remainingSeconds <= 5) {
-      classes.push("lessThan5");
+    if (remainingSeconds == 140) {
+	  classes.push("lessThan5");
+	//   player.exitStatus.set("finished");
+	//   ExitSurvey.push(exitForm);
     } else if (remainingSeconds <= 10) {
       classes.push("lessThan10");
     }

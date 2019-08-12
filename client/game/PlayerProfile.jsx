@@ -50,10 +50,11 @@ export default class PlayerProfile extends React.Component {
     return (
       <Card className={"player-profile"}>
         <aside>
-          {this.renderProfile()}
+          {/* {this.renderProfile()} */}
           {/*We only show individual level feedback if it is feedback time & we show individual feedback*/}
-          {feedbackTime && selfFeedback ? this.renderScore() : null}
-          <Timer stage={stage} />
+          {/* {feedbackTime && selfFeedback ? this.renderScore() : null} */}
+          <br />
+		  <Timer stage={stage} />
         </aside>
       </Card>
     );

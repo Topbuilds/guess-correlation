@@ -15,6 +15,9 @@ export default class Sorry extends React.Component {
         break;
       case "gameLobbyTimedOut":
         msg = "There were NOT enough players for the game to start..";
+		break;
+	  case "stageTimedOut":
+        msg = "It takes too long for one of the player to respond..";
         break;
       // case "playerLobbyTimedOut":
       //   msg = "???";
@@ -45,6 +48,14 @@ export default class Sorry extends React.Component {
           {/*</p>*/}
 
           {player.exitStatus === "gameLobbyTimedOut" ? (
+            <p>
+              Please submit <em>{player._id}</em> as the survey code in order to
+              receive the $1 base payment for your time today. We will also add
+              $0.1 showing-up bonus with the approval of this HIT.
+            </p>
+		  ) : null}
+		  
+		  {player.exitStatus === "stageTimedOut" ? (
             <p>
               Please submit <em>{player._id}</em> as the survey code in order to
               receive the $1 base payment for your time today. We will also add

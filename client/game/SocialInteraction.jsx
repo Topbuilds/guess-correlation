@@ -112,7 +112,7 @@ export default class SocialInteraction extends React.Component {
         ) : null}
 
         <p>
-          <strong>You are following:</strong>
+          <strong>Round Record:</strong>
         </p>
         {this.renderAltersList(alterIds)}
       </div>

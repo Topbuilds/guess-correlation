@@ -126,7 +126,7 @@ Empirica.gameInit(game => {
 
 		var i, n = game.treatment.stageNum; // total Q&A phases in every round
 		for (i = 1; i < n+1; i++) {
-			var str_ques = "Question ", str_ans = "Answer ";
+			var str_ques = "Q ", str_ans = "A ";
 
 			var str_name = "interactive " + i.toString() + "q";
 			str_ques += i.toString();
@@ -148,13 +148,13 @@ Empirica.gameInit(game => {
 
       round.addStage({
         name: "Guess concept",
-        displayName: "Guess concept",
+        displayName: "Guess",
         durationInSeconds: game.treatment.stageDuration
       });
 	
 	  round.addStage({
         name: "Final check interactive",
-        displayName: "Check concept",
+        displayName: "Check",
         durationInSeconds: game.treatment.stageDuration
       });
 
@@ -168,7 +168,7 @@ Empirica.gameInit(game => {
     ) {
       round.addStage({
         name: "outcome interactive",
-        displayName: "Round Outcome",
+        displayName: "Outcome",
         durationInSeconds: game.treatment.stageDuration
       });
     }

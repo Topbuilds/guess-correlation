@@ -30,8 +30,10 @@ export default class ExitSurvey extends React.Component {
       <div>
         <h1> Exit Survey </h1>
         <h3>
-          Please submit the following code to receive your bonus:{" "}
-          <em>{player._id}</em>.
+		  Please complete the following survey to receive your bonus! 
+		  <br />
+		  If you don't feel comfortable answering any of the questions below, please skip it.
+		  {/* <em>{player._id}</em>. */}
         </h3>
         <p>
           You final{" "}

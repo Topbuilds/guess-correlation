@@ -46,8 +46,8 @@ export default class Quiz extends React.Component {
     event.preventDefault();
 
     if (
-      this.state.nParticipants !== game.treatment.altersCount.toString() ||
-      this.state.goal !== "estimate" ||
+    //   this.state.nParticipants !== game.treatment.altersCount.toString() ||
+    //   this.state.goal !== "estimate" ||
       this.state.color !== "white"
     ) {
       this.setState({ quizMistake: true });
@@ -65,7 +65,7 @@ export default class Quiz extends React.Component {
           <h1 className="bp3-heading"> Quiz </h1>
 
           <form onSubmit={this.handleSubmit}>
-            {game.treatment.altersCount > 1 ? (
+            {/* {game.treatment.altersCount > 1 ? (
               <FormGroup
                 label={"What is the maximum number of people you can follow?"}
                 labelFor={"nParticipants"}
@@ -85,9 +85,9 @@ export default class Quiz extends React.Component {
                   />
                 </div>
               </FormGroup>
-            ) : null}
+            ) : null} */}
 
-            <FormGroup>
+            {/* <FormGroup>
               <RadioGroup
                 label="Select the true statement about the goal of the task:"
                 onChange={this.handleRadioChange}
@@ -104,7 +104,7 @@ export default class Quiz extends React.Component {
                   value="count"
                 />
               </RadioGroup>
-            </FormGroup>
+            </FormGroup> */}
 
             <FormGroup
               label={"What color was Napoleon's white horse?"}

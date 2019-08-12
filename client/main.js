@@ -25,7 +25,7 @@ Empirica.consent(Consent);
 // At this point they have been assigned a treatment. You can return
 // different instruction steps depending on the assigned treatment.
 Empirica.introSteps(game => {
-  const steps = [Overview, YourGuessStage];
+  const steps = [Overview];//, YourGuessStage
 
 //   if (game.treatment.altersCount > 1) {
 //     steps.push(InteractiveGuessStage);

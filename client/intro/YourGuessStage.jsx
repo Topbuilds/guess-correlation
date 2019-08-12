@@ -112,10 +112,8 @@ export default class YourGuessStage extends React.Component {
           <h1 className={"bp3-heading"}> Round overview </h1>
 
           <p>
-            You will play <strong>{game.treatment.nRounds} rounds</strong> total
-            {nStages > 1
-              ? " and each round will consist of a set concept stage, 10 Question & Answer stage, a guess concept stage, a check concept stage, and an outcome stage ."
-              : "."}
+            You will play <strong>{game.treatment.nRounds} rounds</strong> total and each round will consist of a set concept stage,
+			 <strong>{game.treatment.stageNum} Question & Answer stage</strong>, a guess concept stage, a check concept stage, and an outcome stage. 
           </p>
 
           <h3 className="bp3-heading">1. The Set Concept Stage</h3>

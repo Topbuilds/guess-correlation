@@ -9,15 +9,14 @@ export default class Consent extends React.Component {
         <div className="consent">
           <h1 className="bp3-heading"> Consent Form </h1>
           <p className="bp3-ui-text">
-            This experiment is part of a MIT scientific project. Your decision
-            to participate in this experiment is entirely voluntary. There are
-            no known or anticipated risks to participating in this experiment.
-            There is no way for us to identify you. The only information we will
-            have, in addition to your responses, is the timestamps of your
-            interactions with our site. The results of our research may be
-            presented at scientific meetings or published in scientific
-            journals. Clicking on the "AGREE" button indicates that you are at
-            least 18 years of age, and agree to participate voluntary.
+            <h3>By answering the following questions, you are participating in a study being performed by researchers at Wharton.
+			If you have questions about this research, please contact John McCoy at jpmccoy@wharton.upenn.edu. Your participation in this research is voluntary.
+			You may decline to answer any or all of the following questions. 
+			Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.
+			<br />
+			
+			<br />
+			I am at least 18 years of age, have read and understand the explanation provided to me, and voluntarily agree to participate in this study.</h3>
           </p>
           <br />
           <ConsentButton text="I AGREE" />

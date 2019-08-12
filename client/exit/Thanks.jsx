@@ -13,7 +13,7 @@ export default class Thanks extends React.Component {
         <NonIdealState
           icon={"thumbs-up"}
           title={submissionCode}
-          description="Thank you for participating!"
+		  description="Thank you for participating! Please submit the above code to receive your final bonus!"
           //action={"what is an actions?"}
         />
       </div>
